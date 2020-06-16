@@ -1,9 +1,10 @@
+
 create table counties (
 	County VARCHAR (255),
 	PRIMARY KEY (County)
 )
 
-create table drought (
+creat table drought (
 	County VARCHAR(255),
 	No_Drought int,
 	D0 int,
