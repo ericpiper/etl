@@ -1,8 +1,19 @@
 
+-- DROP EXISTING TABLES
+
+DROP TABLE counties;
+DROP TABLE drought;
+DROP TABLE fires;
+
+-- CREATE TABLES
+
 create table counties (
-	County VARCHAR (255),
-	PRIMARY KEY (County)
-)
+	 id SERIAL UNIQUE, 
+	County VARCHAR (255) NOT NULL,
+	CONSTRAINT pk_counties PRIMARY KEY (
+        id
+     )
+);
 
 creat table drought (
 	County VARCHAR(255),
@@ -14,8 +25,7 @@ creat table drought (
 	D4 int,
 	Valid_Start date NOT NULL,
 	Valid_end date NOT NULL
-	FOREIGN KEY (County)
-)
+);
 
 create table fires (
 	Acres_Burned int,
@@ -44,9 +54,24 @@ create table fires (
 	Structures_Destroyed int,
 	Structures_Threatened int,
 	Water_Tenders int,
-	FOREIGN KEY (County)
-)
+);
 
 create table search_keywords (
 	Search_Keywords VARCHAR()
-)
+);
+
+
+-- ADD FOREIGN KEYS TO TABLES
+ALTER TABLE drought ADD CONSTRAINT fk_drought_ County FOREIGN KEY(County)
+REFERENCES counties (County);
+
+ALTER TABLE fires ADD CONSTRAINT fk_fires_County FOREIGN KEY(County)
+REFERENCES counties (County);
+
+
+-- ALTER TABLE Search_Keywords ADD CONSTRAINT fk_key_search_County FOREIGN KEY(id)
+-- REFERENCES counties (id);
+
+-- IMPORTED DATA FROM CSV'S IN THE FOLLOWING ORDER THEN CHECK TABLES
+SELECT * FROM drought;
+SELECT * FROM ;
