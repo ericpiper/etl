@@ -4,10 +4,11 @@
 DROP TABLE counties;
 DROP TABLE drought;
 DROP TABLE fires;
+DROP TABLE search_keywords;
 
 -- CREATE TABLES
 
-create table counties (
+CREATE TABLE counties (
 	 id SERIAL UNIQUE, 
 	County VARCHAR (255) NOT NULL,
 	CONSTRAINT pk_counties PRIMARY KEY (
@@ -15,7 +16,7 @@ create table counties (
      )
 );
 
-creat table drought (
+CREATE TABLE drought (
 	County VARCHAR(255),
 	No_Drought int,
 	D0 int,
@@ -27,12 +28,12 @@ creat table drought (
 	Valid_end date NOT NULL
 );
 
-create table fires (
+CREATE TABLE fires (
 	Acres_Burned int,
 	Active boolean,
 	Admin_Unit VARCHAR(255),
 	Air_Tankers int,
-	Counties VARCHAR(255),
+	County VARCHAR(255),
 	County_Ids VARCHAR(255),
 	Crews_Involved int,
 	Dozers int,
@@ -56,7 +57,7 @@ create table fires (
 	Water_Tenders int,
 );
 
-create table search_keywords (
+CREATE TABLE search_keywords (
 	Search_Keywords VARCHAR()
 );
 
@@ -75,3 +76,18 @@ REFERENCES counties (County);
 -- IMPORTED DATA FROM CSV'S IN THE FOLLOWING ORDER THEN CHECK TABLES
 SELECT * FROM drought;
 SELECT * FROM ;
+
+
+------------------------------------------------------------------------------------------------
+-- 1. In descending order, list the frequency of fires by county
+------------------------------------------------------------------------------------------------
+DROP VIEW fires_count_counties;
+
+CREATE VIEW fires_count_counties AS
+SELECT f.County,
+    COUNT(*) occurrences
+FROM fires f
+GROUP BY f.County
+ORDER BY occurrences DESC;
+
+SELECT * FROM fires_count_counties;
