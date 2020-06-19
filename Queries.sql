@@ -26,7 +26,7 @@ ORDER BY occurrences DESC;
 SELECT * FROM fires_count_counties;
 
 ------------------------------------------------------------------------------------------------
--- 1. Riverside fires
+-- 2. Riverside fires
 ------------------------------------------------------------------------------------------------
 DROP VIEW riverside_fires;
 
@@ -37,3 +37,19 @@ WHERE f.county = 'Riverside'
 ORDER BY f.started DESC;
 
 SELECT * FROM riverside_fires;
+
+----------------------------------------------------------------------------------------------
+-- 3. Fires that have burned more than 10000 acres
+----------------------------------------------------------------------------------------------
+
+DROP acres_burned;
+
+CREATE VIEW acres_burned AS
+SELECT f.name, f.started, f.county, drought 
+FROM ((fires f
+INNER JOIN drought d
+	   ON f.county = d.county))
+WHERE f.acres_burned > 10000 
+ORDER BY f.acres_burned DESC;
+
+SELECT * FROM acres_burned;

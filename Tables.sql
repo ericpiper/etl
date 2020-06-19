@@ -9,88 +9,72 @@ DROP TABLE search_keywords;
 -- CREATE TABLES
 
 CREATE TABLE counties (
-	 id SERIAL UNIQUE, 
+	id SERIAL UNIQUE, 
 	county VARCHAR (255) NOT NULL,
 	CONSTRAINT pk_counties PRIMARY KEY (
-        id
+        county
      )
 );
 
 CREATE TABLE drought (
 	county VARCHAR(255),
-	no_drought int,
-	d0 int,
-	d1 int,
-	d2 int,
-	d3 int,
-	d4 int,
+	no_drought FLOAT(2),
+	d0 FLOAT(2),
+	d1 FLOAT(2),
+	d2 FLOAT(2),
+	d3 FLOAT(2),
+	d4 FLOAT(2),
 	valid_start date NOT NULL,
 	valid_end date NOT NULL
 );
 
 CREATE TABLE fires (
-	acres_burned int,
-	active boolean,
+	acres_burned INT,
+	active BOOLEAN,
 	admin_unit VARCHAR(255),
-	air_tankers int,
+	air_tankers INT,
 	county VARCHAR(255),
 	county_ids VARCHAR(255),
-	crews_involved int,
-	dozers int,
-	engines int,
-	extinguished date NOT NULL,
-	fatalities int,
-	fuel_type int,
-	helicopters int, 
-	injuries int,
-	latitude float(6), 
-	location int,
-	longitude float(6),
-	major_incident boolean,
-	name VARCHAR(255)
+	crews_involved INT,
+	dozers INT,
+	engines INT,
+	extinguished DATE NOT NULL,
+	fatalities INT,
+	fuel_type INT,
+	helicopters INT, 
+	injuries INT,
+	latitude FLOAT(6), 
+	location VARCHAR(255),
+	longitude FLOAT(6),
+	major_incident BOOLEAN,
+	name VARCHAR(255),
+	personnel_involved  INT,
 	search_description VARCHAR(255),
 	search_keywords VARCHAR(255),
-	started date NOT NULL,
-	structures_damaged int,
-	structures_destroyed int,
-	structures_threatened int,
-	water_tenders int,
+	started DATE NOT NULL,
+	structures_damaged INT,
+	structures_destroyed INT,
+	structures_threatened INT,
+	water_tenders INT
 );
 
 CREATE TABLE search_keywords (
-	search_keywords VARCHAR()
+	search_keywords VARCHAR(255)
 );
 
 
 -- ADD FOREIGN KEYS TO TABLES
-ALTER TABLE drought ADD CONSTRAINT fk_drought_ county FOREIGN KEY(county)
+ALTER TABLE drought ADD CONSTRAINT fk_drought_county FOREIGN KEY(county)
 REFERENCES counties (county);
 
 ALTER TABLE fires ADD CONSTRAINT fk_fires_county FOREIGN KEY(county)
 REFERENCES counties (county);
 
-
--- ALTER TABLE Search_Keywords ADD CONSTRAINT fk_key_search_county FOREIGN KEY(id)
--- REFERENCES counties (id);
+--ALTER TABLE Search_Keywords ADD CONSTRAINT fk_key_search_county FOREIGN KEY(id)
+--REFERENCES counties (id);
 
 -- IMPORTED DATA FROM CSV'S IN THE FOLLOWING ORDER THEN CHECK TABLES
 SELECT * FROM counties;
 SELECT * FROM drought;
 SELECT * FROM fires;
-SELECT * FROM search_keywords
-
-
-
-------------------------------------------------------------------------------------------------
--- 1. In descending order, list the frequency of fires by county
-------------------------------------------------------------------------------------------------
-DROP VIEW fires_count_counties;
-
-CREATE VIEW fires_count_counties AS
-SELECT f.county,
-    COUNT(*) occurrences
-FROM fires f
-GROUP BY f.county
-ORDER BY occurrences DESC;
-
-SELECT * FROM fires_count_counties;
+SELECT * FROM search_keywords;
