@@ -10,67 +10,67 @@ DROP TABLE search_keywords;
 
 CREATE TABLE counties (
 	 id SERIAL UNIQUE, 
-	County VARCHAR (255) NOT NULL,
+	county VARCHAR (255) NOT NULL,
 	CONSTRAINT pk_counties PRIMARY KEY (
         id
      )
 );
 
 CREATE TABLE drought (
-	County VARCHAR(255),
-	No_Drought int,
-	D0 int,
-	D1 int,
-	D2 int,
-	D3 int,
-	D4 int,
-	Valid_Start date NOT NULL,
-	Valid_end date NOT NULL
+	county VARCHAR(255),
+	no_drought int,
+	d0 int,
+	d1 int,
+	d2 int,
+	d3 int,
+	d4 int,
+	valid_start date NOT NULL,
+	valid_end date NOT NULL
 );
 
 CREATE TABLE fires (
-	Acres_Burned int,
-	Active boolean,
-	Admin_Unit VARCHAR(255),
-	Air_Tankers int,
-	County VARCHAR(255),
-	County_Ids VARCHAR(255),
-	Crews_Involved int,
-	Dozers int,
-	Engines int,
-	Extinguished date NOT NULL,
-	Fatalities int,
-	Fuel_Type int,
-	Helicopters int, 
-	Injuries int,
-	Latitude float(6), 
-	Location int,
-	Longitude float(6),
-	Major_Incident boolean,
-	Name VARCHAR(255)
-	Search_Description VARCHAR(255),
-	Search_Keywords VARCHAR(255),
-	Started date NOT NULL,
-	Structures_Damaged int,
-	Structures_Destroyed int,
-	Structures_Threatened int,
-	Water_Tenders int,
+	acres_burned int,
+	active boolean,
+	admin_unit VARCHAR(255),
+	air_tankers int,
+	county VARCHAR(255),
+	county_ids VARCHAR(255),
+	crews_involved int,
+	dozers int,
+	engines int,
+	extinguished date NOT NULL,
+	fatalities int,
+	fuel_type int,
+	helicopters int, 
+	injuries int,
+	latitude float(6), 
+	location int,
+	longitude float(6),
+	major_incident boolean,
+	name VARCHAR(255)
+	search_description VARCHAR(255),
+	search_keywords VARCHAR(255),
+	started date NOT NULL,
+	structures_damaged int,
+	structures_destroyed int,
+	structures_threatened int,
+	water_tenders int,
 );
 
 CREATE TABLE search_keywords (
-	Search_Keywords VARCHAR()
+	search_keywords VARCHAR()
 );
 
 
 -- ADD FOREIGN KEYS TO TABLES
-ALTER TABLE drought ADD CONSTRAINT fk_drought_ County FOREIGN KEY(County)
-REFERENCES counties (County);
+ALTER TABLE drought ADD CONSTRAINT fk_drought_ county FOREIGN KEY(county)
+REFERENCES counties (county);
 
-ALTER TABLE fires ADD CONSTRAINT fk_fires_County FOREIGN KEY(County)
-REFERENCES counties (County);
+ALTER TABLE fires ADD CONSTRAINT fk_fires_county FOREIGN KEY(county)
+REFERENCES counties (county);
 
 
--- ALTER TABLE Search_Keywords ADD CONSTRAINT fk_key_search_County FOREIGN KEY(id)
+-- ALTER TABLE Search_Keywords ADD CONSTRAINT fk_key_search_county FOREIGN KEY(id)
 -- REFERENCES counties (id);
 
 -- IMPORTED DATA FROM CSV'S IN THE FOLLOWING ORDER THEN CHECK TABLES
@@ -84,10 +84,10 @@ SELECT * FROM ;
 DROP VIEW fires_count_counties;
 
 CREATE VIEW fires_count_counties AS
-SELECT f.County,
+SELECT f.county,
     COUNT(*) occurrences
 FROM fires f
-GROUP BY f.County
+GROUP BY f.county
 ORDER BY occurrences DESC;
 
 SELECT * FROM fires_count_counties;
