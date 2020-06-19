@@ -25,7 +25,8 @@ CREATE TABLE drought (
 	d3 FLOAT(2),
 	d4 FLOAT(2),
 	valid_start date NOT NULL,
-	valid_end date NOT NULL
+	valid_end date NOT NULL,
+	FOREIGN KEY (county) REFERENCES counties(county)
 );
 
 CREATE TABLE fires (
@@ -34,7 +35,6 @@ CREATE TABLE fires (
 	admin_unit VARCHAR(255),
 	air_tankers INT,
 	county VARCHAR(255),
-	county_ids VARCHAR(255),
 	crews_involved INT,
 	dozers INT,
 	engines INT,
@@ -49,31 +49,22 @@ CREATE TABLE fires (
 	major_incident BOOLEAN,
 	name VARCHAR(255),
 	personnel_involved  INT,
-	search_description VARCHAR(255),
-	search_keywords VARCHAR(255),
+	search_description TEXT,
+	search_keywords TEXT,
 	started DATE NOT NULL,
 	structures_damaged INT,
 	structures_destroyed INT,
 	structures_threatened INT,
-	water_tenders INT
+	water_tenders INT,
+	FOREIGN KEY (county) REFERENCES counties(county)
 );
 
 CREATE TABLE search_keywords (
-	search_keywords VARCHAR(255)
+	search_keywords TEXT,
+	FOREIGN KEY (name) REFERENCES fires(name)
 );
 
-
--- ADD FOREIGN KEYS TO TABLES
-ALTER TABLE drought ADD CONSTRAINT fk_drought_county FOREIGN KEY(county)
-REFERENCES counties (county);
-
-ALTER TABLE fires ADD CONSTRAINT fk_fires_county FOREIGN KEY(county)
-REFERENCES counties (county);
-
---ALTER TABLE Search_Keywords ADD CONSTRAINT fk_key_search_county FOREIGN KEY(id)
---REFERENCES counties (id);
-
--- IMPORTED DATA FROM CSV'S IN THE FOLLOWING ORDER THEN CHECK TABLES
+-- CHECK TABLES
 SELECT * FROM counties;
 SELECT * FROM drought;
 SELECT * FROM fires;

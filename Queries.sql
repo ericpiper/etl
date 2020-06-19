@@ -2,14 +2,14 @@
 DROP TABLE counties;
 DROP TABLE drought;
 DROP TABLE fires;
-DROP TABLE search_keywords;
+--DROP TABLE search_keywords;
 
 
 -- CHECK TABLES
-SELECT * FROM counties;
+SELECT * FROM counties WHERE id = 55;
 SELECT * FROM drought;
 SELECT * FROM fires;
-SELECT * FROM search_keywords;
+--SELECT * FROM search_keywords;
 
 ------------------------------------------------------------------------------------------------
 -- 1. In descending order, list the frequency of fires by county
