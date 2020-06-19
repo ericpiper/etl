@@ -74,8 +74,11 @@ REFERENCES counties (county);
 -- REFERENCES counties (id);
 
 -- IMPORTED DATA FROM CSV'S IN THE FOLLOWING ORDER THEN CHECK TABLES
+SELECT * FROM counties;
 SELECT * FROM drought;
-SELECT * FROM ;
+SELECT * FROM fires;
+SELECT * FROM search_keywords
+
 
 
 ------------------------------------------------------------------------------------------------
