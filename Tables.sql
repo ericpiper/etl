@@ -4,16 +4,13 @@
 DROP TABLE counties;
 DROP TABLE drought;
 DROP TABLE fires;
-DROP TABLE search_keywords;
 
 -- CREATE TABLES
 
 CREATE TABLE counties (
 	id SERIAL UNIQUE, 
 	county VARCHAR (255) NOT NULL,
-	CONSTRAINT pk_counties PRIMARY KEY (
-        county
-     )
+	CONSTRAINT pk_counties PRIMARY KEY (county)
 );
 
 CREATE TABLE drought (
@@ -30,6 +27,7 @@ CREATE TABLE drought (
 );
 
 CREATE TABLE fires (
+	id SERIAL UNIQUE, 	
 	acres_burned INT,
 	active BOOLEAN,
 	admin_unit VARCHAR(255),
@@ -38,9 +36,9 @@ CREATE TABLE fires (
 	crews_involved INT,
 	dozers INT,
 	engines INT,
-	extinguished DATE NOT NULL,
+	extinguished DATE,
 	fatalities INT,
-	fuel_type INT,
+	fuel_type VARCHAR(255),
 	helicopters INT, 
 	injuries INT,
 	latitude FLOAT(6), 
@@ -49,23 +47,18 @@ CREATE TABLE fires (
 	major_incident BOOLEAN,
 	name VARCHAR(255),
 	personnel_involved  INT,
-	search_description TEXT,
-	search_keywords TEXT,
 	started DATE NOT NULL,
 	structures_damaged INT,
 	structures_destroyed INT,
 	structures_threatened INT,
 	water_tenders INT,
+	CONSTRAINT pk_fires PRIMARY KEY (id),
 	FOREIGN KEY (county) REFERENCES counties(county)
 );
 
-CREATE TABLE search_keywords (
-	search_keywords TEXT,
-	FOREIGN KEY (name) REFERENCES fires(name)
-);
 
 -- CHECK TABLES
 SELECT * FROM counties;
 SELECT * FROM drought;
 SELECT * FROM fires;
-SELECT * FROM search_keywords;
+
