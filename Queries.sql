@@ -32,7 +32,7 @@ ORDER BY f.started DESC;
 SELECT * FROM riverside_fires;
 
 ----------------------------------------------------------------------------------------------
--- 3. Fires that have burned more than 10000 acres
+-- 3. Fires that have burned more than 100000 acres
 ----------------------------------------------------------------------------------------------
 
 DROP VIEW acres_burned;
@@ -42,9 +42,9 @@ SELECT f.name,f.acres_burned, f.started, f.extinguished, d.county, d.valid_start
 FROM ((fires f
 Inner JOIN drought d
 	   ON f.county = d.county))
-WHERE f.acres_burned > 10000;
+WHERE f.acres_burned > 100000;
 
 SELECT * 
 FROM acres_burned 
-WHERE valid_start >= '2013/07/15'
-AND  valid_end <= '2013/07/30';
+WHERE valid_start >= started
+AND  valid_end <= extinguished;
